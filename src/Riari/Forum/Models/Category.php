@@ -127,7 +127,7 @@ class Category extends BaseModel {
     {
         $components = array(
             'categoryID'  	=> $this->id,
-            'categoryAlias' => Str::slug($this->title, '-')
+            'categoryAlias' =>  $this->title 
         );
 
         return $components;
