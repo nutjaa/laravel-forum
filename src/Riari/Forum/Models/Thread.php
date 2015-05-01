@@ -219,9 +219,9 @@ class Thread extends BaseModel {
     {
         $components = array(
             'categoryID'    => $this->category->id,
-            'categoryAlias' => Str::slug($this->category->title, '-'),
+            'categoryAlias' => str_replace(array(' ','/'), '-' , $this->category->title ),
             'threadID'      => $this->id,
-            'threadAlias'   => Str::slug($this->title, '-')
+            'threadAlias'   => str_replace(array(' ','/'), '-' , $this->title )
         );
 
         return $components;

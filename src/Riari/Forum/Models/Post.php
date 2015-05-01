@@ -92,9 +92,9 @@ class Post extends BaseModel {
     {
         $components = array(
             'categoryID'    => $this->thread->category->id,
-            'categoryAlias' => Str::slug($this->thread->category->title, '-'),
+            'categoryAlias' => str_replace(array(' ','/'), '-' , $this->thread->category->title),
             'threadID'      => $this->thread->id,
-            'threadAlias'   => Str::slug($this->thread->title, '-'),
+            'threadAlias'   => str_replace(array(' ','/'), '-' , $this->thread->title),
             'postID'        => $this->id
         );
 

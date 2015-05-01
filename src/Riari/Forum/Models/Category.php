@@ -127,7 +127,7 @@ class Category extends BaseModel {
     {
         $components = array(
             'categoryID'  	=> $this->id,
-            'categoryAlias' =>  $this->title 
+            'categoryAlias' =>  str_replace(array(' ','/'), '-' , $this->title) 
         );
 
         return $components;
