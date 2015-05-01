@@ -151,6 +151,8 @@ abstract class BaseController extends Controller {
         {
             $thread->markAsRead($user->id);
         }
+        
+        $thread->increaseView() ; 
 
         return $this->makeView('forum::thread');
     }

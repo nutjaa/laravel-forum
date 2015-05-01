@@ -238,6 +238,12 @@ class Thread extends BaseModel {
             $this->reader->touch();
         }
     }
+    
+    public function increaseView(){
+    	$this->views++ ; 
+    	$this->timestamps = false;
+    	$this->save() ; 
+    }
 
     public function toggle($property)
     {
