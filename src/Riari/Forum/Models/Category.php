@@ -57,6 +57,10 @@ class Category extends BaseModel {
     {
         return $this->threads()->orderBy('pinned', 'desc')->orderBy('updated_at', 'desc')->paginate(config('forum.preferences.threads_per_category'));
     }
+    
+    public function getThreadsTop5Attribute(){
+    	return $this->threads()->orderBy('pinned', 'desc')->orderBy('updated_at', 'desc')->paginate(5);
+    }
 
     public function getPageLinksAttribute()
     {
