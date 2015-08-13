@@ -152,8 +152,8 @@ abstract class BaseController extends Controller {
         {
             $thread->markAsRead($user->id);
         }
-        
-        $thread->increaseView() ; 
+
+        $thread->increaseView() ;
 
         return $this->makeView('forum::thread');
     }
@@ -190,12 +190,9 @@ abstract class BaseController extends Controller {
             );
 
             $post = $this->posts->create($post);
-            
+
             $this->uploadImage($post) ;
-            
-            if( Input::file('upload')->isValid() ){
-              echo Input::file('upload')->getClientMimeType() ; die() ; 
-            } 
+
 
             Alerts::add('success', trans('forum::base.thread_created'));
 
@@ -242,7 +239,7 @@ abstract class BaseController extends Controller {
             $post = $this->posts->create($post);
 
             $post->thread->touch();
-            
+
             $this->uploadImage($post) ;
 
             Alerts::add('success', trans('forum::base.reply_added'));
@@ -317,7 +314,7 @@ abstract class BaseController extends Controller {
             );
 
             $post = $this->posts->update($post);
-            
+
             $this->uploadImage($post) ;
 
             Alerts::add('success', trans('forum::base.post_updated'));
@@ -348,26 +345,26 @@ abstract class BaseController extends Controller {
 
         return Redirect::to($this->collections['thread']->route);
     }
-    
+
     private function uploadImage($post){
       if( is_object(Input::file('upload')) && Input::file('upload')->isValid() ){
-        $file = Input::file('upload') ; 
-        $valid_type = array('image/jpeg' , 'image/png') ; 
-        if( in_array( $file->getClientMimeType() , $valid_type )) { 
-          $filename = $post->id . '.' . $file->guessExtension() ; 
-          $file->move('files/forum/' , $filename  ); 
-          $img = Image::make('files/forum/'.$filename ) ; 
-          
+        $file = Input::file('upload') ;
+        $valid_type = array('image/jpeg' , 'image/png') ;
+        if( in_array( $file->getClientMimeType() , $valid_type )) {
+          $filename = $post->id . '.' . $file->guessExtension() ;
+          $file->move('files/forum/' , $filename  );
+          $img = Image::make('files/forum/'.$filename ) ;
+
           $img->resize(600, null, function ($constraint) {
               $constraint->aspectRatio();
               $constraint->upsize();
           });
-          $img->save()  ; 
-          
-          $post->content = $post->content . '<p><img src="/files/forum/'.$filename.'" class="img-responsive center-block" /><p>' ; 
-          $post->save() ; 
+          $img->save()  ;
+
+          $post->content = $post->content . '<p><img src="/files/forum/'.$filename.'" class="img-responsive center-block" /><p>' ;
+          $post->save() ;
         }
-      } 
+      }
     }
 
 }
